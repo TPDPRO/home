@@ -1,0 +1,87 @@
+# Import required libraries
+import os
+import datetime
+
+# Define your personal details
+name = "Jane Doe"
+email = "janedoe@example.com"
+phone = "+1 (555) 555-5555"
+address = "123 Main St, Anytown, USA"
+linkedin = "linkedin.com/in/janedoe"
+github = "github.com/janedoe"
+
+# Define your skills
+skills = ["Python", "HTML", "CSS", "JavaScript", "SQL"]
+
+# Define your experience
+experience = [
+    {
+        "position": "Self-Taught Programmer",
+        "company": "N/A",
+        "start_date": datetime.date(2021, 1, 1),
+        "end_date": datetime.date.today(),
+        "description": "Learned Python, HTML, CSS, JavaScript, and SQL through online courses and self-study."
+    }
+]
+
+# Define your education
+education = [
+    {
+        "degree": "Online Courses and Self-Study",
+        "institution": "Various",
+        "graduation_date": datetime.date(2022, 12, 31)
+    }
+]
+
+# Define a function to generate the resume
+def generate_resume():
+    # Define the format for the resume
+    resume = """
+    {name}
+    {email} | {phone} | {address}
+    {linkedin} | {github}
+
+    Skills
+    ------
+    {skills}
+
+    Experience
+    ----------
+    {experience}
+
+    Education
+    ---------
+    {education}
+    """
+
+    # Format the resume with the personal details, skills, experience, and education
+    formatted_resume = resume.format(
+        name=name,
+        email=email,
+        phone=phone,
+        address=address,
+        linkedin=linkedin,
+        github=github,
+        skills="\n".join(skills),
+        experience="\n\n".join(["- {position}\n  {company}, {start_date} - {end_date}\n  {description}".format(**exp) for exp in experience]),
+        education="\n".join(["- {degree}\n  {institution}, {graduation_date}".format(**edu) for edu in education])
+    )
+
+    return formatted_resume
+
+# Define a function to save the resume as a text file
+def save_resume(resume):
+    # Create a directory for the resumes if it does not exist
+    if not os.path.exists("resumes"):
+        os.makedirs("resumes")
+
+    # Save the resume as a text file in the resumes directory
+    file_name = "resumes/{}.txt".format(name.lower().replace(" ", "_"))
+    with open(file_name, "w") as file:
+        file.write(resume)
+
+    print("Resume saved to {}.".format(file_name))
+
+# Generate and save the resume
+resume = generate_resume()
+save_resume(resume)

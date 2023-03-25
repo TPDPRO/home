@@ -1,0 +1,10 @@
+# Our Mission
+
+TDM is dedicated to the continued focus and advancement of creating, refining, and maintaining detailed instructions and processes for various technical tasks and operations within organizations and government entities. We place a high value on standardization, consistency, and efficiency in our clients operations across all sectors of many different economies on a global scale; saving seconds every day quickly adds up to years of savings no matter what one does.
+
+Our Technical Procedure Development process involves creating step-by-step instructions that guide employees, directors and decision makers through complex technical tasks, such as operating complex machinery, establishing systems of maintenance, or troubleshooting issues and inefficiencies. These procedures are often documented in manuals, training materials, or software tools, and are designed to ensure that tasks are completed safely, accurately, and efficiently without overlooking disaster planning and preparedness.
+
+As a highly effective and cohesive team of industry leading technical writers, engineers, and subject matter experts work together to create and maintain quantifiably effective results. Our team has been responsible for training thousands of individuals and groups on proper policies, procedures, accident prevention and mitigation in just about every industry. Expectedly this always results in a higher efficiency of operations, increases in productivity with happier and safer individuals and lastly the bottom line; higher yields with less input.
+
+The benefits of having a strong Technical Procedure Development process in place includes improved safety, increased efficiency, and reduced errors or rework. By standardizing procedures, companies can also improve communication and collaboration between teams, reduce training time for new employees, and ensure compliance with industry regulations.
+Prioritizing Technical Procedure Development, companies will always improve upon and enjoy higher quality, consistency, and safety in its operations.

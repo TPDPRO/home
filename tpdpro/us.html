@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GitHub File Reader</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<h1>GitHub File Reader</h1>
+	<div id="content"></div>
+
+	<script>
+		// GitHub repository information
+		const repoName = "my-repo";
+		const repoOwner = "my-username";
+		const branchName = "main";
+
+		// File path and name to check
+		const filePath = "path/to/my/file.txt";
+
+		// GitHub API URL to get file content
+		const apiUrl = `https://raw.githubusercontent.com/TPDPRO/home/master/tpdpro/`;
+
+		// Check if the file exists on GitHub
+		fetch(apiUrl)
+			.then(response => {
+				// File exists on GitHub, parse the response to JSON
+				if (response.ok) {
+					return response.json();
+				}
+				// File doesn't exist on GitHub, read from local filesystem
+				throw new Error('File not found on GitHub');
+			})
+			.then(data => {
+				// File exists on GitHub, decode and display content
+				const content = atob(data.content);
+				document.getElementById("content").innerHTML = content;
+			})
+			.catch(error => {
+				// File doesn't exist on GitHub, read from local filesystem
+				console.error(error);
+				const filePath = "/path/to/my/file.txt";
+				fetch(filePath)
+					.then(response => response.text())
+					.then(data => {
+						// Display local file content
+						document.getElementById("content").innerText = data;
+					})
+					.catch(error => console.error(error));
+			});
+	</script>
+</body>
+</html>
