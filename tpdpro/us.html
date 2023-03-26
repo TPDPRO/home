@@ -1,52 +1,193 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>GitHub File Reader</title>
-	<meta charset="utf-8">
+    <meta charset="UTF-8">
+    <title>Three.js Color Picker</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #gui-container {
+            position: absolute;
+            padding-right: 1rem;
+            top: 0;
+            right: 0;
+            z-index: 1000;
+
+        }
+
+        #my-canvas {
+            border: 5px solid #ddd;
+            width: 100%
+        }
+    </style>
 </head>
+
 <body>
-	<h1>GitHub File Reader</h1>
-	<div id="content"></div>
+    <div id="gui-container"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three/examples/js/controls/OrbitControls.js"></script>
 
-	<script>
-		// GitHub repository information
-		const repoName = "my-repo";
-		const repoOwner = "my-username";
-		const branchName = "main";
+    <!-- HTML code with a canvas element to contain the rendered scene -->
+    <canvas id="my-canvas"></canvas>
+    <div id="gui-container"></div>
 
-		// File path and name to check
-		const filePath = "path/to/my/file.txt";
+    <script>
+        let scene, camera, renderer, cube, wireframe, controls, gui;
 
-		// GitHub API URL to get file content
-		const apiUrl = `https://raw.githubusercontent.com/TPDPRO/home/master/tpdpro/`;
+        init();
+        animate();
 
-		// Check if the file exists on GitHub
-		fetch(apiUrl)
-			.then(response => {
-				// File exists on GitHub, parse the response to JSON
-				if (response.ok) {
-					return response.json();
-				}
-				// File doesn't exist on GitHub, read from local filesystem
-				throw new Error('File not found on GitHub');
-			})
-			.then(data => {
-				// File exists on GitHub, decode and display content
-				const content = atob(data.content);
-				document.getElementById("content").innerHTML = content;
-			})
-			.catch(error => {
-				// File doesn't exist on GitHub, read from local filesystem
-				console.error(error);
-				const filePath = "/path/to/my/file.txt";
-				fetch(filePath)
-					.then(response => response.text())
-					.then(data => {
-						// Display local file content
-						document.getElementById("content").innerText = data;
-					})
-					.catch(error => console.error(error));
-			});
-	</script>
+        function init() {
+            // create scene
+            scene = new THREE.Scene();
+
+            const size = 10;
+            const divisions = 20;
+            // create a grid helper
+            const gridHelper = new THREE.GridHelper(size, divisions);
+            scene.add(gridHelper);
+
+            const gridHelper2 = new THREE.GridHelper(size, divisions);
+            gridHelper2.rotation.x = Math.PI / 2; // align with Y axis
+            scene.add(gridHelper2);
+
+            // create camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.set(7, 7, 10);
+
+            // create cube
+            const geometry = new THREE.BoxGeometry(1, 1,);
+
+            const material = new THREE.MeshBasicMaterial({ color: 0x000000 });
+            cube = new THREE.Mesh(geometry, material);
+
+            // calculate the appropriate scale factor for the cube based on the canvas dimensions
+            const canvas = document.getElementById('my-canvas');
+            const canvasAspect = canvas.clientWidth / canvas.clientHeight;
+            const cubeAspect = 1;
+            const scaleFactor = canvasAspect > cubeAspect ? 1 / canvasAspect : 1;
+
+            // apply the scale factor to the cube
+            cube.scale.multiplyScalar(scaleFactor);
+
+            scene.add(cube);
+            // set initial rotation of cube
+            // cube.rotation.x = 0.5;
+            // cube.rotation.y = 0.5;
+
+            // create wireframe
+            wireframe = new THREE.LineSegments(
+                new THREE.EdgesGeometry(geometry),
+                new THREE.LineBasicMaterial({ color: 0xdddddd })
+            );
+            wireframe.scale.copy(cube.scale);
+            wireframe.rotation.copy(cube.rotation);
+            wireframe.visible = true;
+
+            scene.add(wireframe);
+
+            // create renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, canvas: canvas });
+            renderer.setClearColor(0xffffff, 1);
+            // Set the renderer size to match the canvas dimensions
+            renderer.setSize(canvas.clientWidth, canvas.clientWidth);
+
+            // Create the controls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.25;
+            controls.screenSpacePanning = true;
+            controls.minDistance = 0;
+            controls.maxDistance = 500;
+
+            // create gui
+            gui = new dat.GUI({ autoPlace: false });
+            document.getElementById('gui-container').appendChild(gui.domElement);
+
+            // add background color picker
+            const bgColor = { color: '#ffffff' };
+            gui.addColor(bgColor, 'color').name('Background Color').onChange((color) => {
+                renderer.setClearColor(color);
+            });
+
+            // add cube color picker
+            const cubeColor = { color: '#ffffff' };
+            gui.addColor(cubeColor, 'color').name('Cube Color').onChange((color) => {
+                cube.material.color.set(color);
+            });
+
+            // add wireframe color picker
+            const wireframeColor = { color: '#ffffff' };
+            gui.addColor(wireframeColor, 'color').name('Wireframe Color').onChange((color) => {
+                wireframe.material.color.set(color);
+            });
+
+            // add wireframe checkbox
+            gui.add(wireframe, 'visible').name('Wireframe');
+            const cubeFolder = gui.addFolder('Cube');
+            const cameraFolder = gui.addFolder('Camera');
+            const controlsFolder = gui.addFolder('Controls');
+
+            // Add controls to the control bar
+            cubeFolder.add(cube.scale, 'x', 0.1, 2, 0.1).name('Scale X').onChange(x => { wireframe.scale.x = x });
+            cubeFolder.add(cube.scale, 'y', 0.1, 2, 0.1).name('Scale Y').onChange(y => { wireframe.scale.y = y });
+            cubeFolder.add(cube.scale, 'z', 0.1, 2, 0.1).name('Scale Z').onChange(z => { wireframe.scale.z = z });
+            cubeFolder.addColor(material, 'color').name('Color');
+
+            cameraFolder.add(camera.position, 'x', -10, 10).name('Position X');
+            cameraFolder.add(camera.position, 'y', -10, 10).name('Position Y');
+            cameraFolder.add(camera.position, 'z', -10, 10).name('Position Z');
+            cameraFolder.add(camera.rotation, 'x', -Math.PI / 2, Math.PI / 2).name('Rotation X');
+            cameraFolder.add(camera.rotation, 'y', -Math.PI / 2, Math.PI / 2).name('Rotation Y');
+            cameraFolder.add(camera.rotation, 'z', -Math.PI / 2, Math.PI / 2).name('Rotation Z');
+
+            // add options to renderer folder
+            // const rendererFolder = gui.addFolder('Renderer');
+            // rendererFolder.add(renderer, 'antialias').name('Antialias');
+            // rendererFolder.add(renderer, 'shadowMap.enabled').name('Shadows');
+            // rendererFolder.add(renderer, 'shadowMap.type', {
+            //     BasicShadowMap: THREE.BasicShadowMap,
+            //     PCFShadowMap: THREE.PCFShadowMap,
+            //     PCFSoftShadowMap: THREE.PCFSoftShadowMap
+            // }).name('Shadow Type');
+            // rendererFolder.open();
+
+            // add options to controls folder
+            controlsFolder.add(controls, 'enableDamping').name('Enable Damping');
+            controlsFolder.add(controls, 'dampingFactor', 0, 1).name('Damping Factor');
+            controlsFolder.add(controls, 'screenSpacePanning').name('Screen Space Panning');
+            controlsFolder.add(controls, 'minDistance', 0, 100).name('Minimum Distance');
+            controlsFolder.add(controls, 'maxDistance', 0, 500).name('Maximum Distance');
+            controlsFolder.add(controls, 'reset').name('Reset Camera');
+
+            cubeFolder.open();
+            cameraFolder.open();
+            controlsFolder.open();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            // cube.rotation.x += 0.01;
+            // cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+            controls.update();
+        }
+
+
+
+        const canvas = document.getElementById('my-canvas');
+        // set the canvas height equal to its width whenever the window is resized
+        window.addEventListener('resize', () => {
+            canvas.style.width = canvas.parentNode.parentElement.width; // set the canvas width
+            canvas.style.height = canvas.parentNode.parentElement.width; // set the canvas height equal to its width
+        });
+    </script>
+
 </body>
+
 </html>

@@ -6,7 +6,17 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- OPEN GRAPH TAGS -->
+	<meta property="og:title" content="TPD - 3D Prints, Models, Applications, and Product Design">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://tpdpro.com">
+	<meta property="og:image" content="https://tpdpro.com/src/images/0004.png">
+	<meta property="og:image:alt" content="TPD - Recycling plastic to reprint the world in a more sustainable image">
+	<meta property="og:description" content="TPD, a leading company that specializes in 3D printing and design,
+	 offering a wide range of services including product development, prototyping, manufacturing of
+	 custom parts or products, and web application development and design.">
+
 
 
 	<!-- FAVICON -->
@@ -44,7 +54,9 @@
 	<!-- FONTS -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+		integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!-- STYLE -->
 	<link rel="stylesheet" href="./src/css/reset.css">
 	<link rel="stylesheet" href="./src/css/style.css">
@@ -60,8 +72,8 @@
 	<header class="header">
 		<div class="container">
 			<nav class="nav">
-				<div href="/" class="hamburger" class="logo">
-					<img src="/src/images/logo.svg" alt="TPD Logo">
+				<div href="/" class="hamburger logo">
+					<img class="logo" src="/src/images/logo.svg" alt="TPD Logo">
 				</div>
 				<button class="hamburger" aria-label="Toggle menu">
 					<span class="hamburger__box">
@@ -82,9 +94,16 @@
 		<section class="hero">
 			<div class="container">
 				<h1>3D Prints and Models</h1>
-
-				<p>Get high-quality 3D prints and models made to order.</p>
-				<a href="#services" class="btn">See Our Services</a>
+				<img class="hero-img" src="/src/images/0001.png" />
+				<p>Get high-quality 3D prints & models made to order.</p>
+				<button href="#services" class="btn">See Our Services</button>
+			</div>
+			<div class="social-links">
+				<a href="https://twitter.com/" style="color:#1DA1F2" target="_blank"><i class="fab fa-twitter"></i></a>
+				<a href="https://www.facebook.com/" style="color:#4267B2" target="_blank"><i
+						class="fab fa-facebook-f"></i></a>
+				<a href="https://www.instagram.com/" target="_blank"><i id="instagram" class="fab fa-instagram"></i></a>
+				<a href="https://www.linkedin.com/" id="linkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 		</section>
 
@@ -95,64 +114,145 @@
 					<div class="service">
 
 						<h3>Custom 3D Models</h3>
-
-						<img src="/src/images/feature-icon-03.svg" alt="Service 3">
+						<div class="flex-wrap">
+							<img src="/src/images/0002.png" alt="Service 3">
+							<div id="container"></div>
+						</div>
 						<p>We can create a custom 3D model for any project you have in mind. Our team of designers and
 							engineers can turn your ideas into reality.</p>
-						<a href="#contact" class="btn">Get a Quote</a>
+						<button href="#contact" class="btn">Get a Quote</button>
 					</div>
 					<div class="service">
 						<h3>3D Printing</h3>
 
-						<img src="/src/images/feature-icon-02.svg" alt="Service 2">
+						<img src="/src/images/0005.png" alt="Service 2">
 						<p>We use the latest 3D printing technology to produce high-quality, durable parts in a variety
 							of materials and colors.</p>
 					</div>
-					<a href="#contact" class="btn">Get a Quote</a>
+					<button href="#contact" class="btn">Get a Quote</button>
 					<div class="service">
 						<h3>Product Design</h3>
-						<img src="/src/images/feature-icon-01.svg" alt="Service 1">
+						<img src="/src/images/0003.png" alt="Service 1">
 
 						<p>We can help you design and prototype new products using 3D modeling and printing. Our team
 							will work with you to bring your ideas to life.</p>
-						<a href="#contact" class="btn">Get a Quote</a>
+						<button href="#contact" class="btn">Get a Quote</button>
 					</div>
 				</div>
+			</div>
+			<div class="social-links">
+				<a href="https://twitter.com/" style="color:#1DA1F2" target="_blank"><i class="fab fa-twitter"></i></a>
+				<a href="https://www.facebook.com/" style="color:#4267B2" target="_blank"><i
+						class="fab fa-facebook-f"></i></a>
+				<a href="https://www.instagram.com/" target="_blank"><i id="instagram" class="fab fa-instagram"></i></a>
+				<a href="https://www.linkedin.com/" id="linkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 		</section>
 
 		<section class="about-us">
 			<div class="container">
 				<h2>About Us</h2>
-				<hr />
+				<img src="/src/images/0004.png" alt="Service 3">
+				<hr>
 				<p>We are a team of experienced designers and engineers dedicated to providing high-quality 3D prints
 					and models. Our goal is to help our clients bring their ideas to life through the latest technology
 					and design techniques. Whether you need a custom 3D model, 3D printing, or product design services,
 					we have the expertise to deliver exceptional results. Contact us today to learn more about how we
 					can help you with your project. </p>
+				<button href="#contact" class="btn">Our Team</button>
+			</div>
+			<div class="social-links">
+				<a href="https://twitter.com/" style="color:#1DA1F2" target="_blank"><i class="fab fa-twitter"></i></a>
+				<a href="https://www.facebook.com/" style="color:#4267B2" target="_blank"><i
+						class="fab fa-facebook-f"></i></a>
+				<a href="https://www.instagram.com/" target="_blank"><i id="instagram" class="fab fa-instagram"></i></a>
+				<a href="https://www.linkedin.com/" id="linkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 		</section>
 
-		<section id="contact" class="contact">
+		<section id="contact" class="contact" itemscope itemtype="http://schema.org/LocalBusiness">
+			<div class="title">
+
+				<img class="logo" src="https://tpdpro.com/src/images/logo.svg" alt="TPD Logo" itemprop="logo" />
+
+				<h1 itemprop="name">TPD</h1>
+			</div>
 			<div class="container">
-				<h2>Contact Us</h2>
-				<hr />
+				<div class="card">
+					<p itemprop="description">&nbsp;&nbsp;&nbsp;&nbsp;TPD is a leading company that specializes in 3D
+						printing and design,
+						offering a wide range of services including product development, prototyping, manufacturing of
+						custom parts or products, and web application development and design. Our focus is on creating
+						innovative solutions for both the physical and digital world, utilizing cutting-edge technology
+						and expertise to help our clients succeed in their respective industries.
+						<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;With our extensive experience and advanced knowledge of 3D printing and
+						design, we are able to
+						offer our clients high-quality services that are tailored to their specific needs. Our team of
+						experts works closely with clients to understand their requirements and provide customized
+						solutions that meet their exact specifications.
+						<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;We pride ourselves on delivering superior results, and our commitment to
+						excellence has earned
+						us a reputation as a trusted partner for businesses of all sizes. From small start-ups to large
+						corporations, we have the skills and expertise to help our clients achieve their goals and bring
+						their ideas to life.
+						<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;Whether you are looking for assistance with product development,
+						prototyping, manufacturing, or
+						web application development and design, TPD is the perfect partner to help you succeed. Contact
+						us today to learn more about how we can help you take your business to the next level.
+					</p>
+					<address>
+						<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+							<span itemprop="streetAddress">305 West Howard St.</span>
+							<span itemprop="addressLocality">Hibbing</span>,
+							<span itemprop="addressRegion">MN</span>
+							<span itemprop="postalCode">55746</span>
+						</div>
+						<span itemprop="telephone">(123) 456-7890</span>
+					</address>
+				</div>
+
 				<form action="/send-email" method="POST">
+					<h2>Contact Us</h2>
 					<label for="name">Name:</label>
 					<input type="text" id="name" name="name" required>
+
 					<label for="email">Email:</label>
 					<input type="email" id="email" name="email" required>
+
+					<label for="phone">Phone:</label>
+					<input type="tel" id="phone" name="phone">
+
+					<label for="subject">Subject:</label>
+					<input type="text" id="subject" name="subject">
+
 					<label for="message">Message:</label>
 					<textarea id="message" name="message" required></textarea>
+
 					<button type="submit" class="btn">Send Message</button>
+
+					<div id="feedback"></div>
 				</form>
+			</div>
+			<div class="social-links">
+				<a href="https://twitter.com/" style="color:#1DA1F2" target="_blank"><i class="fab fa-twitter"></i></a>
+				<a href="https://www.facebook.com/" style="color:#4267B2" target="_blank"><i
+						class="fab fa-facebook-f"></i></a>
+				<a href="https://www.instagram.com/" target="_blank"><i id="instagram" class="fab fa-instagram"></i></a>
+				<a href="https://www.linkedin.com/" id="linkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 		</section>
 	</main>
 
 	<footer class="footer">
 		<div class="container">
-			<p>&copy; TPD - 3D Prints and Models</p>
+			<p>TPD &copy; 2023 | All Rights Reserved</p>
+			<a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+			<a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+			<a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+			<a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
 		</div>
 	</footer>
 
@@ -168,9 +268,15 @@
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
 
+	<!-- Render 3D -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js" />
+	<script src="https://cdn.jsdelivr.net/npm/three/examples/js/controls/OrbitControls.js" />
+
 	<script src="/src/js/app.js"></script>
 	<script src="/src/js/main.js"></script>
 	<script src="/src/js/randArt.js"></script>
+	<script src="/src/js/form.js"></script>
 </body>
 
 </html>

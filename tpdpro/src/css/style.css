@@ -56,11 +56,11 @@ main {
 
 section {
 	background: rgba(242, 242, 242, 0.9);
-	padding: 2rem;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	padding: 0.5rem 2rem;
 	border-radius: 1rem;
 }
 
-h1,
 h2 {
 	margin: 0;
 	text-align: center;
@@ -68,7 +68,6 @@ h2 {
 
 h1 {
 	font-size: 2.5rem;
-	text-align: center;
 }
 
 h2 {
@@ -76,9 +75,14 @@ h2 {
 	margin-bottom: 1rem;
 }
 
+h3 {
+	width: 100%;
+}
+
 p {
 	line-height: 1.5;
 	margin-bottom: 1rem;
+	width: 100%;
 }
 
 button {
@@ -99,7 +103,7 @@ button:hover {
 /* Hero section */
 #hero {
 	/* background-color: #e6e6e6; */
-	padding: 3rem;
+	padding: 2rem;
 	text-align: center;
 }
 
@@ -113,17 +117,10 @@ button:hover {
 	margin-bottom: 3rem;
 }
 
-/* About section */
-#about {
-	/* background-color: #fff; */
-	padding: 3rem;
+.hero-img {
+	max-width: 350px;
 }
 
-/* Services section */
-#services {
-	/* background-color: #f2f2f2; */
-	padding: 3rem;
-}
 
 #services li {
 	font-size: 1.25rem;
@@ -132,8 +129,6 @@ button:hover {
 
 /* Gallery setion */
 #gallry {
-	/* backgroucend-color: #fff; */
-	padding: 3rem;
 	text-align: center;
 }
 
@@ -145,11 +140,6 @@ button:hover {
 }
 
 /* Testimonials section */
-#testimonials {
-	/* background-color: #f2f2f2; */
-	padding: 3rem;
-	text-align: center;
-}
 
 .testimonial {
 	margin-bottom: 2rem;
@@ -165,75 +155,104 @@ button:hover {
 	margin-top: 1rem;
 }
 
+#contact .container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: flex-start;
+}
 /* Contact section */
-#contact {
-	/* background-color: #e6e6e6; */
-	padding: 3rem;
-	text-align: center;
+.contact > .title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.contact-form input,
-.contact-form textarea {
-	display: block;
-	font-size: 1rem;
-	margin-bottom: 1rem;
-	padding: 0.5rem;
-	width: 100%;
+.contact > .title > h1 {
+	margin: 0;
 }
 
+.card > .title > p {
+	margin: 0;
+	display: inline-block;
+	width: auto;
+}
+
+.card > .title > .logo {
+	/* height: 3rem;
+	width: 3rem; */
+	margin: 1rem;
+	/* padding: 1rem; */
+}
+.flex-wrap{
+	display: flex;
+	flex-wrap: wrap;
+}
 .service {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
 }
-.contact-form textarea {
-	height: 10rem;
-}
-
-.contact-form button {
-	margin-top: 1rem;
-}
-
 form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.form-group {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 1.5rem;
+	max-width: 500px;
+	width: 100%;
+	min-width: 200px;
+	margin: 0 auto;
+	padding: 2rem;
+	margin-top: 1rem;
+	background-color: rgba(242, 242, 242, 0.1);
+	box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
 }
 
 label {
-	font-size: 1rem;
-	font-weight: 500;
-	margin-bottom: 0.5rem;
-	color: #222;
+	display: block;
+	margin-bottom: 10px;
+	font-weight: bold;
+	color: #555;
 }
 
-input,
+input[type="text"],
+input[type="email"],
+input[type="tel"],
 textarea {
-	padding: 0.5rem;
+	display: block;
+	width: 100%;
+	max-width: 90%;
+	padding: 10px;
+	margin-bottom: 20px;
 	border: 1px solid #ccc;
-	border-radius: 0.25rem;
-	font-size: 1rem;
-	color: #222;
+	border-radius: 4px;
+	font-size: 16px;
+	color: #555;
 }
 
-textarea {
-	height: 10rem;
+input[type="submit"] {
+	display: block;
+	width: 100%;
+	padding: 10px;
+	background-color: #008000;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	cursor: pointer;
 }
 
-.error-message {
-	color: red;
-	font-size: 0.75rem;
-	margin-top: 0.25rem;
+input[type="submit"]:hover {
+	background-color: #006400;
+}
+
+#feedback {
+	margin-top: 20px;
+	padding: 10px;
+	background-color: #008000;
+	color: #fff;
+	text-align: center;
+	display: none;
 }
 
 button {
-	background-color: #ddd;
+	background-color: #02cbb1;
 	color: #fff;
 	font-size: 1rem;
 	padding: 0.5rem 1rem;
@@ -252,12 +271,27 @@ body {
 	padding: 0;
 	/* background-color: #222; */
 }
+
 svg {
 	position: fixed;
 	z-index: -1;
 }
 
 /* CSS Styles */
+
+.footer > .container > p {
+	background-color: rgba(242, 242, 242, 0.5);
+	border-radius: 1rem;
+	width: auto;
+	color: #fff;
+}
+
+.footer > .container > .social-links > a {
+	color: #fff;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
 
 .header {
 	background-color: #fff;
@@ -277,8 +311,53 @@ svg {
 	padding: 1rem;
 }
 
-.logo img {
-	height: 3rem;
+.social-links {
+	display: flex;
+	justify-content: right;
+	margin: 1rem;
+	color: #fff;
+}
+
+.social-links > a {
+	padding: 0 0.5rem;
+	color: #fff;
+}
+
+.social-links > a > #instagram {
+	background: radial-gradient(
+		circle at 30% 107%,
+		#fdf497 0%,
+		#fdf497 5%,
+		#fd5949 45%,
+		#d6249f 60%,
+		#285aeb 90%
+	);
+	background: -webkit-radial-gradient(
+		circle at 30% 107%,
+		#fdf497 0%,
+		#fdf497 5%,
+		#fd5949 45%,
+		#d6249f 60%,
+		#285aeb 90%
+	);
+	color: transparent;
+	-webkit-background-clip: text;
+	background-clip: text;
+}
+
+
+.social-links > a#linkedIn  {
+	color: #0077b5;
+	border-radius: .2rem;
+}
+
+i {
+	margin:0;
+	padding:0;
+}
+
+address {
+	max-width: 200px;
 }
 
 .menu {
@@ -376,8 +455,8 @@ svg {
 }
 
 .service > img {
-	width:100%;
-	max-width:200px;
+	width: 100%;
+	max-width: 200px;
 }
 
 @media (max-width: 767px) {
@@ -403,5 +482,22 @@ svg {
 
 	.hamburger--open .menu {
 		transform: translateX(0);
+	}
+}
+
+img {
+	width: 100%;
+	height: auto;
+}
+
+img.logo {
+	width: 2.5rem;
+	height: 2.5rem;
+}
+
+@media (max-width: 767px) {
+	#contact .container {
+		display: flex;
+		flex-wrap: wrap;
 	}
 }

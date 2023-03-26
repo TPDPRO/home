@@ -33,17 +33,5 @@ for (var i = 0; i < 20; i++) {
 
 
 
-const hamburger = document.querySelector(".hamburger");
-const menu = document.querySelector(".menu");
 
-hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("hamburger--open");
-  menu.classList.toggle("menu--open");
-});
 
-menu.addEventListener("click", (event) => {
-  if (event.target.tagName === "div") {
-    hamburger.classList.remove("hamburger--open");
-    menu.classList.remove("menu--open");
-  }
-});
