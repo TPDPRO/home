@@ -80,9 +80,9 @@
       flex-wrap: wrap;
       width: 100%;
       border-radius: 10px;
-      overflow:hidden;
+      overflow: hidden;
       border: 1px solid black;
-      box-shadow: 5px 2.5px 2.5px rgba(0,0,0,.5);
+      box-shadow: 5px 2.5px 2.5px rgba(0, 0, 0, .5);
     }
 
     .btns>* {
@@ -103,10 +103,15 @@
       display: flex;
       flex-wrap: wrap;
     }
-    .header{
+
+    .header {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+    }
+
+    .active>* {
+      display: none;
     }
   </style>
 </head>
@@ -114,12 +119,15 @@
 <body id="body">
   <script>
     function generateViews(labels) {
+
+
+
       for (let i = 0; i < 4; i++) {
         const rotation = i * 90;
-        const angel = rotation % 90 === 0 ? 1: 0;
+        const angel = rotation % 90 === 0 ? 1 : 0;
         const label1 = labels.slice(i).concat(labels.slice(0, i));
         const label2 = label1.slice(1).concat(label1.slice(0, 1));
-        const axis = ['x','y','z'];
+        const axis = ['x', 'y', 'z'];
         const back_plain = axis.filter(x => !labels.includes(x));
         const dpad = [
           [
@@ -157,41 +165,48 @@
             <circle cx="50%" cy="50%" r="3%" fill="black"/>
             <!-- x=y line -->
             <line x1="5%" y1="95%" x2="95%" y2="5%" stroke="#ddd" stroke-width="1" transform="rotate(${rotation}, 50, 50)" stroke-dasharray="5, 5"/>
-            <text x="90%" y="15%" font-size="10px" fill="#ddd" transform="rotate(${rotation}, 50, 50)">${back_plain}</text>
+            <text x="90%" y="15%" font-size="10px" z-index="-1" fill="#ddd" transform="rotate(${rotation}, 50, 50)">${back_plain}</text>
 
           </svg>
         </div>
         <div id="key-config">
           <div class="btns">
-            <button><i class="fas fa-arrow-left" style="transform: rotate(45deg);"></i>
+            <button class="corner group-${i}">
+              <i class="fas fa-arrow-left" style="transform: rotate(45deg);"></i>
               <p>${dpad[0][0]}</p>
-              </button>
-            <button><i class="fas fa-arrow-up" ></i>
+            </button>
+            <button>
+              <i class="fas fa-arrow-up" ></i>
               <p>${dpad[0][1]}</p>
-              </button>
-            <button><i class="fas fa-arrow-right" style="transform: rotate(-45deg);"></i>
+            </button>
+            <button class="corner group-${i}">
+              <i class="fas fa-arrow-right" style="transform: rotate(-45deg);"></i>
               <p>${dpad[0][2]}</p>
-              </button>
+            </button>
 
             <button><i class="fas fa-arrow-left"></i>
               <p>${dpad[1][0]}</p>
               </button>
-            <button><i class="fas fa-arrows-alt-v"></i>
+            <button onClick="setActive(this)" id="group-${i}"><i class="fas fa-arrows-alt-v"></i>
               <p>${dpad[1][1]}</p>
               </button>
-            <button><i class="fas fa-arrow-right"></i>
+            <button>
+              <i class="fas fa-arrow-right"></i>
               <p>${dpad[1][2]}</p>
-              </button>
+            </button>
 
-            <button><i class="fas fa-arrow-down" style="transform: rotate(45deg);"></i>
+            <button class="corner group-${i}">
+              <i class="fas fa-arrow-down" style="transform: rotate(45deg);"></i>
               <p>${dpad[2][0]}</p>
-              </button>
-            <button><i class="fas fa-arrow-down"></i>
+            </button>
+            <button>
+              <i class="fas fa-arrow-down"></i>
               <p>${dpad[2][1]}</p>
-              </button>
-            <button><i class="fas fa-arrow-down" style="transform: rotate(-45deg);"></i>
+            </button>
+            <button class="corner group-${i}">
+              <i class="fas fa-arrow-down" style="transform: rotate(-45deg);"></i>
               <p>${dpad[2][2]}</p>
-              </button>
+            </button>
           </div>
         </div>
       </div>
@@ -215,7 +230,18 @@
     }
 
     const possibilities = [['x', 'y', '-x', '-y'], ['x', 'z', '-x', '-z'], ['y', 'z', '-y', '-z']];
-
+    function setActive(e) {
+      console.log(e)
+      console.log(e.id)
+      const group = e.id
+      const buttons = document.querySelectorAll("." + group);
+      buttons.forEach(btn =>{ 
+        btn.se
+        btn.setAttribute("style","height:"+btn.offsetHeight+"px; width:"+btn.offsetWidth+"px;");
+        
+        btn.classList.toggle('active');
+      });
+    }
     for (let i = 0; i < possibilities.length; i++) {
       generateViews(possibilities[i]);
     }
