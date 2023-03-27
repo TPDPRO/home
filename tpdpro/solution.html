@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .plane {
+      height: 100px;
+      width: 200px;
+      padding: 1rem;
+      display:flex;
+    }
+    svg{
+      height:100px;
+      width:100px;
+    }
+    p,
+    pre{
+      font-size: 8px;
+      padding:0
+    }
+    .btns {
+      display:flex;
+      flex-wrap:wrap;
+      height:100px;
+      width:100px;
+    }
+
+    .btns >*{
+      width:33%;
+      height:33%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+      margin:0;
+    }
+    .btns > * > p {
+      margin:0;
+    }
+
+
+
+  </style>
+</head>
+
+<body id="body">
+  <script>
+    function generateViews(labels) {
+      const views = [];
+      const movements = [];
+      const keyConfigs = {};
+      for (let i = 0; i < 4; i++) {
+        const rotation = i * 90;
+        const label1 = labels.slice(i).concat(labels.slice(0, i));
+        const label2 = label1.slice(1).concat(label1.slice(0, 1));
+        const move = [`${label1[2]},${label1[1]}`, `${label1[1]}`, `${label1[1]},${label1[0]}`, `${label1[0]}`, `Menu Button`, `${label1[0]},${label1[3]}`, `${label1[3]}`, `${label1[2]},${label1[3]}`, `${label1[2]}`]
+        movements.push(move)
+        // keyConfigs.push([[move.slice(0, 3)], [move.slice(3, 6)], [move.slice(6, 9)]])
+        const dpad = [
+          [label1[2] + "," + label1[1], label1[1], label1[1] + "," + label1[0]],
+          [label1[0], "menu", label1[0] + "," + label1[3]],
+          [label1[3], label1[2] + "," + label1[3], label1[2]]
+        ];
+        const svg = `
+      <div class="plane">
+        <!-- XY Plane -->
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" >
+          <!-- axis -->
+          <line x1="5%" y1="50%" x2="95%" y2="50%" stroke="black" stroke-width="1"/>
+          <line x1="50%" y1="5%" x2="50%" y2="95%" stroke="black" stroke-width="1"/>
+          <text x="90%" y="45%" font-size="10px" >${label1[0]}</text>
+          <text x="55%" y="10px" font-size="10px">${label1[1]}</text>
+          <text x="0%" y="45%" font-size="10px">${label1[2]}</text>
+          <text x="55%" y="95%" font-size="10px">${label1[3]}</text>
+
+          <!-- Origin -->
+          <circle cx="50%" cy="50%" r="3%" fill="black"/>
+        </svg>
+        <div id="key-config">
+          <p>Moves:</p>
+          <div class="btns">
+            <div><i class="fas fa-arrow-left" style="transform: rotate(45deg);"></i>
+              <p>${dpad[0][0]}</p>
+              </div>
+            <div><i class="fas fa-arrow-up" ></i>
+              <p>${dpad[0][1]}</p>
+              </div>
+            <div><i class="fas fa-arrow-right" style="transform: rotate(-45deg);"></i>
+              <p>${dpad[0][2]}</p>
+              </div>
+
+            <div><i class="fas fa-arrow-left"></i>
+              <p>${dpad[1][0]}</p>
+              </div>
+            <div><i class="fas fa-arrows-alt-v"></i>
+              <p>${dpad[1][1]}</p>
+              </div>
+            <div><i class="fas fa-arrow-right"></i>
+              <p>${dpad[1][2]}</p>
+              </div>
+
+            <div><i class="fas fa-arrow-down" style="transform: rotate(45deg);"></i>
+              <p>${dpad[2][0]}</p>
+              </div>
+            <div><i class="fas fa-arrow-down"></i>
+              <p>${dpad[2][1]}</p>
+              </div>
+            <div><i class="fas fa-arrow-down" style="transform: rotate(-45deg);"></i>
+              <p>${dpad[2][2]}</p>
+              </div>
+          </div>
+        </div>
+      </div>
+    `;
+        const body = document.getElementById('body');
+        body.innerHTML += svg;
+      }
+    }
+
+    const possibilities = [['x', 'y', '-x', '-y'], ['x', 'z', '-x', '-z'], ['y', 'z', '-y', '-z']]
+    for (let i = 0; i < possibilities.length; i++) {
+      generateViews(possibilities[i]);
+    }
+  </script>
+</body>
+
+</html>

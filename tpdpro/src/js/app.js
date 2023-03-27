@@ -1,30 +1,44 @@
-// Select the elements we'll need
-const btn = document.querySelector('.btn');
-const services = document.getElementById('services');
+const pattern = ["-xy", "y", "yx", "x", "menu", "x-y", "-y", "-x-y", "-x"];
 
-// Add an event listener to the button
-btn.addEventListener('click', function() {
-  // Scroll smoothly to the services section when button is clicked
-  services.scrollIntoView({behavior: 'smooth'});
-});
+function countUniqueOrientations() {
+  const orientations = ["-xy", "-yx", "-x-z", "-z-x", "-yz", "-zy"];
+  let count = 0;
 
-// Select the services grid and all the service elements
-const servicesGrid = document.querySelector('.services-grid');
-const servicesElements = servicesGrid.querySelectorAll('.service');
+  for (let i = 0; i < orientations.length; i++) {
+    const start = orientations[i];
+    let current = start;
+    let visited = new Set();
 
-// Add a hover effect to each service element
-servicesElements.forEach(function(service) {
-  service.addEventListener('mouseenter', function() {
-    this.classList.add('active');
-  });
-  service.addEventListener('mouseleave', function() {
-    this.classList.remove('active');
-  });
-});
+    do {
+      const index = pattern.indexOf(current);
+      current = pattern[(index + 1) % pattern.length];
+      visited.add(current);
+    } while (current !== start && !visited.has(current));
 
-// Select the logo and add a click event listener
-const logo = document.querySelector('.logo');
-logo.addEventListener('click', function() {
-  // Reload the page when the logo is clicked
-  location.reload();
-});
+    if (current === start) {
+      count++;
+    } else {
+      let cycleFound = false;
+
+      do {
+        const index = pattern.indexOf(current);
+        current = pattern[(index + 1) % pattern.length];
+
+        if (visited.has(current)) {
+          cycleFound = true;
+          break;
+        }
+
+        visited.add(current);
+      } while (current !== start);
+
+      if (!cycleFound) {
+        count += visited.size + 1;
+      }
+    }
+  }
+
+  return count;
+}
+
+console.log(countUniqueOrientations()); // output: 6

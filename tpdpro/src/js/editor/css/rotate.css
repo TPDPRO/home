@@ -1,0 +1,50 @@
+.editor-rotate-container {
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+  }
+  
+  .editor-rotate-container .editor-rotate-container-button {
+    position: absolute;
+    width: fit-content;
+    height: 50%;
+    left: 50%;
+    transform-origin: center bottom;
+    transform: translateX(-50%) rotate(calc((var(--n) - 1) * 45deg));
+  }
+  
+  .editor-rotate-container-button div:nth-child(1) {
+    --n: 1;
+  }
+  
+  .editor-rotate-container-button div:nth-child(2) {
+    --n: 2;
+  }
+  
+  .editor-rotate-container-button div:nth-child(3) {
+    --n: 3;
+  }
+  
+  .editor-rotate-container-button div:nth-child(4) {
+    --n: 4;
+  }
+  
+  .editor-rotate-container-button div:nth-child(5) {
+    --n: 5;
+  }
+  
+  .editor-rotate-container-button div:nth-child(6) {
+    --n: 6;
+  }
+  
+  .editor-rotate-container-button div:nth-child(7) {
+    --n: 7;
+  }
+  
+  .editor-rotate-container-button div:nth-child(8) {
+    --n: 8;
+  }
+  
+  .editor-rotate-container-button div button {
+    height: 20%;
+  }
