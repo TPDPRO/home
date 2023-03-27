@@ -10,129 +10,210 @@
     integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
+    * {
+      -webkit-box-sizing: border-box;
+      /* Safari/Chrome, other WebKit */
+      -moz-box-sizing: border-box;
+      /* Firefox, other Gecko */
+      box-sizing: border-box;
+      /* Opera/IE 8+ */
+    }
+
     body {
       height: 100%;
       width: 100%;
       display: flex;
       flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
+    }
+
+    #container {
+      border: solid 1px #ddd;
+      width: 25%;
+      padding: 5px;
+      min-width: 200px;
+      justify-content: space-evenly;
+      align-items: center;
+      align-content: center;
     }
 
     .plane {
-      height: 100px;
-      width: 200px;
-      padding: 1rem;
-      display:flex;
-    }
-    svg{
-      height:100px;
-      width:100px;
-    }
-    p,
-    pre{
-      font-size: 8px;
-      padding:0
-    }
-    .btns {
-      display:flex;
-      flex-wrap:wrap;
-      height:100px;
-      width:100px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 5px;
     }
 
-    .btns >*{
-      width:33%;
-      height:33%;
+    svg {
+      height: 100%;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 16px;
+    }
+
+    h2 {
+      font-size: 10px;
+    }
+
+    h3 {
+      font-size: 8px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      padding: 0;
+      margin: 0;
+    }
+
+    p,
+    pre {
+      font-size: 8px;
+      padding: 0;
+    }
+
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .btns>* {
+      width: 33%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       align-content: center;
-      margin:0;
-    }
-    .btns > * > p {
-      margin:0;
+      margin: 0;
     }
 
+    .btns>*>p {
+      margin: 0;
+    }
 
-
+    #infoBox {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .header{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
   </style>
 </head>
 
 <body id="body">
   <script>
     function generateViews(labels) {
-      const views = [];
-      const movements = [];
-      const keyConfigs = {};
       for (let i = 0; i < 4; i++) {
         const rotation = i * 90;
+        const angel = rotation % 90 === 0 ? 1: 0;
         const label1 = labels.slice(i).concat(labels.slice(0, i));
         const label2 = label1.slice(1).concat(label1.slice(0, 1));
-        const move = [`${label1[2]},${label1[1]}`, `${label1[1]}`, `${label1[1]},${label1[0]}`, `${label1[0]}`, `Menu Button`, `${label1[0]},${label1[3]}`, `${label1[3]}`, `${label1[2]},${label1[3]}`, `${label1[2]}`]
-        movements.push(move)
-        // keyConfigs.push([[move.slice(0, 3)], [move.slice(3, 6)], [move.slice(6, 9)]])
+        const axis = ['x','y','z'];
+        const back_plain = axis.filter(x => !labels.includes(x));
         const dpad = [
-          [label1[2] + "," + label1[1], label1[1], label1[1] + "," + label1[0]],
-          [label1[0], "menu", label1[0] + "," + label1[3]],
-          [label1[3], label1[2] + "," + label1[3], label1[2]]
+          [
+            label1[2] + label1[1],
+            label1[1],
+            label1[0] + label1[1]],
+          [
+            label1[2],
+            "menu",
+            label1[0],
+          ],
+          [
+            label1[2] + label1[3],
+            label1[3],
+            label1[0] + label1[3],
+          ]
         ];
         const svg = `
+    <div id="container">
+      <div class="header">
+        <h2>Navigator: ${rotation && "viewing at " + rotation}</h2>
+        <h2>Viewing: ${label1[0]}, ${label1[1]}, ${back_plain}</h2>
+      </div>
       <div class="plane">
-        <!-- XY Plane -->
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" >
-          <!-- axis -->
-          <line x1="5%" y1="50%" x2="95%" y2="50%" stroke="black" stroke-width="1"/>
-          <line x1="50%" y1="5%" x2="50%" y2="95%" stroke="black" stroke-width="1"/>
-          <text x="90%" y="45%" font-size="10px" >${label1[0]}</text>
-          <text x="55%" y="10px" font-size="10px">${label1[1]}</text>
-          <text x="0%" y="45%" font-size="10px">${label1[2]}</text>
-          <text x="55%" y="95%" font-size="10px">${label1[3]}</text>
+        <div id="gird">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" >
+            <!-- axis -->
+            <line x1="5%" y1="50%" x2="95%" y2="50%" stroke="black" stroke-width="1"/>
+            <line x1="50%" y1="5%" x2="50%" y2="95%" stroke="black" stroke-width="1"/>
+            <text x="90%" y="45%" font-size="10px" >${label1[0]}</text>
+            <text x="55%" y="10px" font-size="10px">${label1[1]}</text>
+            <text x="0%" y="45%" font-size="10px">${label1[2]}</text>
+            <text x="55%" y="95%" font-size="10px">${label1[3]}</text>
+            <!-- Origin -->
+            <circle cx="50%" cy="50%" r="3%" fill="black"/>
+            <!-- x=y line -->
+            <line x1="5%" y1="95%" x2="95%" y2="5%" stroke="#ddd" stroke-width="1" transform="rotate(${rotation}, 50, 50)" stroke-dasharray="5, 5"/>
+            <text x="90%" y="15%" font-size="10px" fill="#ddd" transform="rotate(${rotation}, 50, 50)">${back_plain}</text>
 
-          <!-- Origin -->
-          <circle cx="50%" cy="50%" r="3%" fill="black"/>
-        </svg>
+          </svg>
+        </div>
         <div id="key-config">
-          <p>Moves:</p>
           <div class="btns">
-            <div><i class="fas fa-arrow-left" style="transform: rotate(45deg);"></i>
+            <button><i class="fas fa-arrow-left" style="transform: rotate(45deg);"></i>
               <p>${dpad[0][0]}</p>
-              </div>
-            <div><i class="fas fa-arrow-up" ></i>
+              </button>
+            <button><i class="fas fa-arrow-up" ></i>
               <p>${dpad[0][1]}</p>
-              </div>
-            <div><i class="fas fa-arrow-right" style="transform: rotate(-45deg);"></i>
+              </button>
+            <button><i class="fas fa-arrow-right" style="transform: rotate(-45deg);"></i>
               <p>${dpad[0][2]}</p>
-              </div>
+              </button>
 
-            <div><i class="fas fa-arrow-left"></i>
+            <button><i class="fas fa-arrow-left"></i>
               <p>${dpad[1][0]}</p>
-              </div>
-            <div><i class="fas fa-arrows-alt-v"></i>
+              </button>
+            <button><i class="fas fa-arrows-alt-v"></i>
               <p>${dpad[1][1]}</p>
-              </div>
-            <div><i class="fas fa-arrow-right"></i>
+              </button>
+            <button><i class="fas fa-arrow-right"></i>
               <p>${dpad[1][2]}</p>
-              </div>
+              </button>
 
-            <div><i class="fas fa-arrow-down" style="transform: rotate(45deg);"></i>
+            <button><i class="fas fa-arrow-down" style="transform: rotate(45deg);"></i>
               <p>${dpad[2][0]}</p>
-              </div>
-            <div><i class="fas fa-arrow-down"></i>
+              </button>
+            <button><i class="fas fa-arrow-down"></i>
               <p>${dpad[2][1]}</p>
-              </div>
-            <div><i class="fas fa-arrow-down" style="transform: rotate(-45deg);"></i>
+              </button>
+            <button><i class="fas fa-arrow-down" style="transform: rotate(-45deg);"></i>
               <p>${dpad[2][2]}</p>
-              </div>
+              </button>
           </div>
         </div>
       </div>
+      <hr>
+      <div  id="infoBox">
+        <div class="info">
+          <h2>Possible Moves</h2>
+          <pre>${JSON.stringify(dpad[0])}</pre>
+          <pre>${JSON.stringify(dpad[1])}</pre>
+          <pre>${JSON.stringify(dpad[2])}</pre>
+        </div>
+        <div class="info">
+          <h2>viewing: ${label1[0]}, ${label1[1]}</h2>
+        </div>
+      </div>
+    </div>
     `;
         const body = document.getElementById('body');
         body.innerHTML += svg;
+        console.log(label1)
+        console.log(label2)
       }
     }
 
-    const possibilities = [['x', 'y', '-x', '-y'], ['x', 'z', '-x', '-z'], ['y', 'z', '-y', '-z']]
+    const possibilities = [['x', 'y', '-x', '-y'], ['x', 'z', '-x', '-z'], ['y', 'z', '-y', '-z']];
+
     for (let i = 0; i < possibilities.length; i++) {
       generateViews(possibilities[i]);
     }
