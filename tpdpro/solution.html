@@ -9,14 +9,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
     integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./src/css/reset.css">
   <style>
     * {
-      -webkit-box-sizing: border-box;
-      /* Safari/Chrome, other WebKit */
-      -moz-box-sizing: border-box;
-      /* Firefox, other Gecko */
       box-sizing: border-box;
-      /* Opera/IE 8+ */
     }
 
     body {
@@ -32,7 +28,7 @@
       border: solid 1px #ddd;
       width: 25%;
       padding: 5px;
-      min-width: 200px;
+      min-width: 250px;
       justify-content: space-evenly;
       align-items: center;
       align-content: center;
@@ -50,30 +46,15 @@
       width: 100%;
     }
 
-    h1 {
-      font-size: 16px;
-    }
-
-    h2 {
-      font-size: 10px;
-    }
-
-    h3 {
+    h1, h2, h3, p, pre {
       font-size: 8px;
-    }
-
-    h1,
-    h2,
-    h3 {
       padding: 0;
       margin: 0;
     }
 
-    p,
-    pre {
-      font-size: 8px;
-      padding: 0;
-    }
+    h1 { font-size: 16px; }
+    h2 { font-size: 10px; }
+    h3 { font-size: 8px; }
 
     .btns {
       display: flex;
@@ -93,6 +74,18 @@
       align-items: center;
       align-content: center;
       margin: 0;
+    }
+
+    .btns>*.bottom_button {
+      flex-direction: column-reverse;
+    }
+
+    .btns>*.men_row {
+      flex-direction: row;
+    }
+
+    .btns>*.men_row.right {
+      flex-direction: row-reverse;
     }
 
     .btns>*>p {
@@ -165,7 +158,7 @@
             <circle cx="50%" cy="50%" r="3%" fill="black"/>
             <!-- x=y line -->
             <line x1="5%" y1="95%" x2="95%" y2="5%" stroke="#ddd" stroke-width="1" transform="rotate(${rotation}, 50, 50)" stroke-dasharray="5, 5"/>
-            <text x="90%" y="15%" font-size="10px" z-index="-1" fill="#ddd" transform="rotate(${rotation}, 50, 50)">${back_plain}</text>
+            <text ${(i % 2 === 0) ? 'x="90%"' : 'x="5%"'} y="15%" font-size="10px" z-index="-1" fill="#ddd" transform="rotate(${rotation}, 50, 50) rotate(${-rotation}, 50, 50)" text-anchor="middle">${back_plain}</text>
 
           </svg>
         </div>
@@ -184,26 +177,26 @@
               <p>${dpad[0][2]}</p>
             </button>
 
-            <button><i class="fas fa-arrow-left"></i>
+            <button class="men_row"><i class="fas fa-arrow-left"></i>
               <p>${dpad[1][0]}</p>
               </button>
             <button onClick="setActive(this)" id="group-${i}"><i class="fas fa-arrows-alt-v"></i>
               <p>${dpad[1][1]}</p>
               </button>
-            <button>
+            <button class="men_row right">
               <i class="fas fa-arrow-right"></i>
               <p>${dpad[1][2]}</p>
             </button>
 
-            <button class="corner group-${i}">
+            <button class="corner group-${i} bottom_button">
               <i class="fas fa-arrow-down" style="transform: rotate(45deg);"></i>
               <p>${dpad[2][0]}</p>
             </button>
-            <button>
+            <button class="bottom_button">
               <i class="fas fa-arrow-down"></i>
               <p>${dpad[2][1]}</p>
             </button>
-            <button class="corner group-${i}">
+            <button class="corner group-${i} bottom_button">
               <i class="fas fa-arrow-down" style="transform: rotate(-45deg);"></i>
               <p>${dpad[2][2]}</p>
             </button>
@@ -219,7 +212,7 @@
           <pre>${JSON.stringify(dpad[2])}</pre>
         </div>
         <div class="info">
-          <h2>viewing: ${label1[0]}, ${label1[1]}</h2>
+          <h2>viewing: ${label1[0]}, ${label1[1]}, ${back_plain}</h2>
         </div>
       </div>
     </div>
@@ -235,10 +228,10 @@
       console.log(e.id)
       const group = e.id
       const buttons = document.querySelectorAll("." + group);
-      buttons.forEach(btn =>{ 
+      buttons.forEach(btn => {
         btn.se
-        btn.setAttribute("style","height:"+btn.offsetHeight+"px; width:"+btn.offsetWidth+"px;");
-        
+        btn.setAttribute("style", "height:" + btn.offsetHeight + "px; width:" + btn.offsetWidth + "px;");
+
         btn.classList.toggle('active');
       });
     }

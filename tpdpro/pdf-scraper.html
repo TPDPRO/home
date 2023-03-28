@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PDF Scraper</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+  </head>
+  <body>
+    <input type="file" id="fileInput" accept=".pdf">
+    <canvas id="pdfCanvas"></canvas>
+    <button id="scrapeButton" disabled>Scrape Data</button>
+    <div id="rulesList"></div>
+    <script type="module" src="src/js/pdf-scraper.js"></script>
+    <script>
+      const fileInput = document.getElementById('fileInput');
+      const pdfCanvas = document.getElementById('pdfCanvas');
+      const scrapeButton = document.getElementById('scrapeButton');
+      const rulesList = document.getElementById('rulesList');
+      let pdfDoc = null;
+
+      // Disable the scrape button until a PDF is selected
+      fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) {
+          scrapeButton.disabled = false;
+        } else {
+          scrapeButton.disabled = true;
+        }
+      });
+
+      // Load the PDF and display it on the canvas
+      scrapeButton.addEventListener('click', async () => {
+        const file = fileInput.files[0];
+        pdfDoc = await pdfjsLib.getDocument(URL.createObjectURL(file)).promise;
+        const page = await pdfDoc.getPage(1);
+        const viewport = page.getViewport({ scale: 1.5 });
+        pdfCanvas.height = viewport.height;
+        pdfCanvas.width = viewport.width;
+        const context = pdfCanvas.getContext('2d');
+        await page.render({ canvasContext: context, viewport }).promise;
+        rulesList.innerHTML = '';
+        for (const name in rules) {
+          const rule = rules[name];
+          const li = document.createElement('li');
+          li.textContent = `${name}: ${rule}`;
+          rulesList.appendChild(li);
+        }
+      });
+    </script>
+  </body>
+</html>

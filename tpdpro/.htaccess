@@ -1,2 +1,4 @@
+Header set Access-Control-Allow-Origin "*"
+
 # DISABLE DIRECTORY INDEXES
 Options -Indexes
